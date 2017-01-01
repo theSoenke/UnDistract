@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "Distract Disabler",
+  "version": "1.0",
+  "description": "Block distracting sites",
+  "icons": {
+    "48": "icons/undistract-48.png"
+  },
+  "applications": {
+    "gecko": {
+      "id": "settings-example@mozilla.org"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "run_at": "document_end",
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "js/distract-blocker.js"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "views/settings.html",
+    "open_in_tab": true
+  },
+  "browser_action": {
+    "default_icon": "icons/undistract-48.png",
+    "default_title": "Block",
+    "default_popup": "views/popup.html"
+  }
+}
