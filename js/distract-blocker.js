@@ -1,5 +1,4 @@
 var bannedSites = browser.storage.local.get("bannedSites");
-
 bannedSites.then(onGotSites, onError);
 
 function onError(error) {
