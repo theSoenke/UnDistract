@@ -8,6 +8,7 @@ btnSettings.addEventListener('click', function () {
 btnBlock.addEventListener('click', function () {
   window.browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     let url = tabs[0].url
+    url = extractHostname(url)
     blockSite(url)
   })
 })
@@ -33,4 +34,10 @@ function saveURLs (bannedSites) {
 
 function onError (error) {
   console.log(`Error: ${error}`)
+}
+
+function extractHostname (url) {
+  let parser = document.createElement('a')
+  parser.href = url
+  return parser.hostname
 }
