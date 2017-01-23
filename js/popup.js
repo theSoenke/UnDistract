@@ -18,7 +18,7 @@ function blockSite (hostname) {
   urlResult.then(
     function (result) {
       let bannedSites = result.bannedSites ? result.bannedSites : ''
-      bannedSites += '\n' + hostname
+      bannedSites += hostname + '\n'
       saveURLs(bannedSites)
     },
     onError)
