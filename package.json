@@ -1,0 +1,19 @@
+{
+  "name": "distract-disabler",
+  "version": "1.0.0",
+  "description": "Block distracting sites",
+  "license": "MIT",
+  "scripts": {
+    "start": "web-ext run",
+    "build": "web-ext build",
+    "lint": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thesoenke/distract-disabler.git"
+  },
+  "devDependencies": {
+    "standard": "^8.6.0",
+    "web-ext": "^1.7.0"
+  }
+}
