@@ -1,5 +1,5 @@
 function loadURLs () {
-  let urlResult = window.browser.storage.local.get()
+  let urlResult = window.browser.storage.local.get({ bannedSites: [] })
   urlResult.then(
     function (result) {
       let bannedSites = result.bannedSites
@@ -13,9 +13,10 @@ function loadURLs () {
 
 function saveURLs () {
   let urlsText = document.getElementById('urls_text')
+  let urlsSplitted = urlsText.value.split(/\s+/)
 
   let urlList = window.browser.storage.local.set({
-    bannedSites: urlsText.value
+    bannedSites: urlsSplitted
   })
 
   urlList.then(null, onError)
@@ -27,7 +28,11 @@ function onError (error) {
 
 function displayURLs (sites) {
   let urlsText = document.getElementById('urls_text')
-  urlsText.value = sites
+  urlsText.value = 0
+
+  for (let i = 0; i < sites.length; i++) {
+    urlsText.value += sites[i] + '\n'
+  }
 }
 
 document.getElementById('save_urls').addEventListener('click', saveURLs)

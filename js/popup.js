@@ -1,31 +1,33 @@
+let browser = window.browser
 let btnSettings = document.getElementById('settings_btn')
 let btnBlock = document.getElementById('block_btn')
 
 btnSettings.addEventListener('click', function () {
-  window.browser.runtime.openOptionsPage()
+  browser.runtime.openOptionsPage()
 })
 
 btnBlock.addEventListener('click', function () {
-  window.browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    let url = tabs[0].url
-    url = extractHostname(url)
-    blockSite(url)
+  browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    let tab = tabs[0]
+    let url = extractHostname(tab.url)
+    blockSite(url, tab)
   })
 })
 
-function blockSite (hostname) {
-  let urlResult = window.browser.storage.local.get()
+function blockSite (hostname, tab) {
+  let urlResult = browser.storage.local.get({ bannedSites: [] })
   urlResult.then(
     function (result) {
-      let bannedSites = result.bannedSites ? result.bannedSites : ''
-      bannedSites += hostname + '\n'
+      let bannedSites = result.bannedSites ? result.bannedSites : []
+      bannedSites.push(hostname)
       saveURLs(bannedSites)
+      browser.tabs.reload(tab.id)
     },
     onError)
 }
 
 function saveURLs (bannedSites) {
-  let urlList = window.browser.storage.local.set({
+  let urlList = browser.storage.local.set({
     bannedSites: bannedSites
   })
 

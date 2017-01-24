@@ -8,7 +8,6 @@ function onError (error) {
 function onGotSites (result) {
   let bannedUrls = result[0].bannedSites
   if (bannedUrls) {
-    bannedUrls = bannedUrls.split(/\s+/)
     checkSites(bannedUrls)
   }
 }
