@@ -19,7 +19,15 @@ function blockSite (hostname, tab) {
   urlResult.then(
     function (result) {
       let bannedSites = result.bannedSites ? result.bannedSites : []
+
+      if (hostname.includes('www.')) {
+        let url = hostname.split('www.')[1]
+        bannedSites.push(url)
+      } else {
+        bannedSites.push('www.' + hostname)
+      }
       bannedSites.push(hostname)
+
       saveURLs(bannedSites)
       browser.tabs.reload(tab.id)
     },

@@ -28,7 +28,7 @@ function onError (error) {
 
 function displayURLs (sites) {
   let urlsText = document.getElementById('urls_text')
-  urlsText.value = 0
+  urlsText.value = ''
 
   for (let i = 0; i < sites.length; i++) {
     urlsText.value += sites[i] + '\n'
