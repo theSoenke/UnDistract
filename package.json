@@ -13,7 +13,7 @@
     "url": "git+https://github.com/thesoenke/distract-disabler.git"
   },
   "devDependencies": {
-    "standard": "^8.6.0",
-    "web-ext": "^1.7.0"
+    "standard": "^10.0.2",
+    "web-ext": "^1.9.1"
   }
 }
