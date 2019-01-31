@@ -6,14 +6,13 @@
   "scripts": {
     "start": "web-ext run",
     "build": "web-ext build",
-    "lint": "standard"
+    "lint": "web-ext lint"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thesoenke/focustime.git"
   },
   "devDependencies": {
-    "standard": "^10.0.2",
-    "web-ext": "^1.9.1"
+    "web-ext": "^2.9.3"
   }
 }
