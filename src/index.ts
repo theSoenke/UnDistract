@@ -1,34 +1,34 @@
-let bannedSites = window.browser.storage.local.get('bannedSites')
+let bannedSites = (<any>window).browser.storage.local.get('bannedSites')
 bannedSites.then(onGotSites, onError)
 
-function onError (error) {
-  console.log(`Error: ${error}`)
+function onError(err: Error) {
+  console.log(`Error: ${err}`)
 }
 
-function onGotSites (result) {
+function onGotSites(result: any) {
   let bannedUrls = result[0].bannedSites
   if (bannedUrls) {
     checkSites(bannedUrls)
   }
 }
 
-function checkSites (bannedSites) {
+function checkSites(bannedSites: string[]) {
   let hostname = window.location.hostname
 
-  bannedSites.forEach(function (site) {
+  bannedSites.forEach(site => {
     if (site === hostname) {
       banCurrentSite()
     }
   })
 }
 
-function banCurrentSite () {
+function banCurrentSite() {
   let div = document.createElement('div')
 
-  let xhr = new window.XMLHttpRequest()
-  xhr.open('GET', window.browser.extension.getURL('../views/banned.html'), true)
+  let xhr = new XMLHttpRequest()
+  xhr.open('GET', (<any>window).browser.extension.getURL('../views/banned.html'), true)
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === window.XMLHttpRequest.DONE && xhr.status === 200) {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
       div.innerHTML = xhr.responseText
       document.documentElement.appendChild(div)
 

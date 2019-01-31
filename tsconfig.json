@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "strictNullChecks": false,
+        "target": "es6",
+        "module": "es6",
+        "outDir": "dist",
+        "removeComments": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": false,
+        "forceConsistentCasingInFileNames": true,
+        "pretty": true
+    },
+    "include": [
+        "src"
+    ]
+}

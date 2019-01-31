@@ -1,4 +1,4 @@
-let browser = window.browser
+const browser = (<any>window).browser;
 let btnSettings = document.getElementById('settings_btn')
 let btnBlock = document.getElementById('block_btn')
 
@@ -7,17 +7,19 @@ btnSettings.addEventListener('click', function () {
 })
 
 btnBlock.addEventListener('click', function () {
-  browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  console.log("hello");
+
+  browser.tabs.query({ active: true, currentWindow: true }, function (tabs: any) {
     let tab = tabs[0]
     let url = extractHostname(tab.url)
     blockSite(url, tab)
   })
 })
 
-function blockSite (hostname, tab) {
-  let urlResult = browser.storage.local.get({ bannedSites: [] })
+function blockSite(hostname: string, tab: any) {
+  let urlResult = (<any>window).browser.storage.local.get.get({ bannedSites: [] })
   urlResult.then(
-    function (result) {
+    function (result: any) {
       let bannedSites = result.bannedSites ? result.bannedSites : []
 
       if (hostname.includes('www.')) {
@@ -28,25 +30,17 @@ function blockSite (hostname, tab) {
       }
       bannedSites.push(hostname)
 
-      saveURLs(bannedSites)
+      storeURLs(bannedSites)
       browser.tabs.reload(tab.id)
     },
-    onError)
+    (err: Error) => {
+      console.log(`Error: ${err}`);
+    });
 }
 
-function saveURLs (bannedSites) {
-  let urlList = browser.storage.local.set({
-    bannedSites: bannedSites
-  })
 
-  urlList.then(null, onError)
-}
 
-function onError (error) {
-  console.log(`Error: ${error}`)
-}
-
-function extractHostname (url) {
+function extractHostname(url: string) {
   let parser = document.createElement('a')
   parser.href = url
   return parser.hostname
